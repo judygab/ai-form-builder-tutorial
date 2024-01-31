@@ -79,13 +79,17 @@ export const forms = pgTable("forms", {
   published: boolean("published"),
 });
 
-export const formsRelations = relations(forms, ({ many, one }) => ({
-  questions: many(questions),
-  user: one(users, {
-    fields: [forms.userId],
-    references: [users.id],
-  }),
-}));
+export const formsRelations = relations(
+  forms,
+  ({ many, one }) => ({
+    questions: many(questions),
+    user: one(users, {
+      fields: [forms.userId],
+      references: [users.id],
+    }),
+    submissions: many(formSubmissions),
+  })
+);
 
 export const questions = pgTable("questions", {
   id: serial("id").primaryKey(),
@@ -94,24 +98,100 @@ export const questions = pgTable("questions", {
   formId: integer("form_id"),
 });
 
-export const questionsRelations = relations(questions, ({ one, many }) => ({
-  form: one(forms, {
-    fields: [questions.formId],
-    references: [forms.id],
-  }),
-  fieldOptions: many(fieldOptions),
-}));
+export const questionsRelations =
+  relations(
+    questions,
+    ({ one, many }) => ({
+      form: one(forms, {
+        fields: [questions.formId],
+        references: [forms.id],
+      }),
+      fieldOptions: many(fieldOptions),
+      answers: many(answers),
+    })
+  );
 
-export const fieldOptions = pgTable("field_options", {
-  id: serial("id").primaryKey(),
-  text: text("text"),
-  value: text("value"),
-  questionId: integer("question_id"),
-});
+export const fieldOptions = pgTable(
+  "field_options",
+  {
+    id: serial("id").primaryKey(),
+    text: text("text"),
+    value: text("value"),
+    questionId: integer("question_id"),
+  }
+);
 
-export const fieldOptionsRelations = relations(fieldOptions, ({ one }) => ({
-  question: one(questions, {
-    fields: [fieldOptions.questionId],
-    references: [questions.id],
-  }),
-}));
+export const fieldOptionsRelations =
+  relations(
+    fieldOptions,
+    ({ one }) => ({
+      question: one(questions, {
+        fields: [
+          fieldOptions.questionId,
+        ],
+        references: [questions.id],
+      }),
+    })
+  );
+
+export const answers = pgTable(
+  "answers",
+  {
+    id: serial("id").primaryKey(),
+    value: text("value"),
+    questionId: integer("question_id"),
+    formSubmissionId: integer(
+      "form_submission_id"
+    ),
+    fieldOptionsId: integer(
+      "field_options_id"
+    ),
+  }
+);
+
+export const answersRelations = relations(
+  answers,
+  ({ one }) => ({
+    question: one(questions, {
+      fields: [answers.questionId],
+      references: [questions.id],
+    }),
+    formSubmission: one(
+      formSubmissions,
+      {
+        fields: [
+          answers.formSubmissionId,
+        ],
+        references: [
+          formSubmissions.id,
+        ],
+      }
+    ),
+    fieldOption: one(fieldOptions, {
+      fields: [answers.fieldOptionsId],
+      references: [fieldOptions.id],
+    }),
+  })
+);
+
+export const formSubmissions = pgTable(
+  "form_submissions",
+  {
+    id: serial("id").primaryKey(),
+    formId: integer("form_id"),
+  }
+);
+
+export const formSubmissionsRelations =
+  relations(
+    formSubmissions,
+    ({ one, many }) => ({
+      form: one(forms, {
+        fields: [
+          formSubmissions.formId,
+        ],
+        references: [forms.id],
+      }),
+      answers: many(answers),
+    })
+  );
