@@ -37,7 +37,8 @@ const DashboardNav = ({ items }: DashboardNavProps) => {
         );
 
       })
-    }</nav>
+    }
+    </nav>
   )
 }
 
