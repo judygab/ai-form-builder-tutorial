@@ -27,7 +27,7 @@ export async function POST(
     );
   }
 
-  if (!sig) return null;
+  if (!sig) return;
 
   const event =
     stripe.webhooks.constructEvent(
