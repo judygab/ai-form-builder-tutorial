@@ -19,6 +19,7 @@ import { useSession, signIn } from "next-auth/react";
 import { navigate } from '../actions/navigateToForm';
 
 import { Plus } from 'lucide-react';
+import {usePlausible} from 'next-plausible'
 
 
 type Props = {}
@@ -43,6 +44,7 @@ const FormGenerator = (props: Props) => {
   const [state, formAction] = useFormState(generateForm, initialState);
   const [open, setOpen] = useState(false);
   const session = useSession();
+  const plausible = usePlausible()
 
   useEffect(() => {
     if (state.message === "success") {
@@ -53,6 +55,7 @@ const FormGenerator = (props: Props) => {
   }, [state.message])
 
   const onFormCreate = () => {
+    plausible('create-form')
     if (session.data?.user) {
       setOpen(true);
     } else {
