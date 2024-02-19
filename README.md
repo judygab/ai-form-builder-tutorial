@@ -1,4 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+The project that uses AI to generate forms.
+
+<img width="1399" alt="Screenshot 2024-01-22 at 3 34 26 PM" src="https://github.com/judygab/ai-form-builder-tutorial/assets/50160672/443a69ed-e441-412a-a84e-ea820022c6dc">
+
+## Tech Stack 
+
+- Next-auth - authentication
+- Shadcn ui - ui library
+- Open Al - AI Integration
+- Drizzle - Orm
+- PostgreSQL - database
+- Stripe - payments
+- Tanstack - Table
+- Typescript - Type Checking
+- Plausible - Analytics
+- Vercel - Deployment
+- Stripe - Payments
+- Zod - Schema Validation
+
+
+## Features
+
+- Authentication ✅
+- AI Form Generation ✅
+- Form Publish and Submissions ✅
+- View your forms ✅
+- Admin Panel ✅
+- View Results ✅
+- Settings & Upgrade Subscription ✅
+- Analytics  ✅
+- Landing page ✅
+- Edit forms ❌ (open to pull requests)
 
 ## Getting Started
 
@@ -20,14 +51,21 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Create a new .env file and add your keys in the following manner:
+```
+OPENAI_API_KEY=""
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+AUTH_SECRET=""
+DATABASE_URL=""
+NEXT_PUBLIC_PUBLISHABLE_KEY=""
+STRIPE_SECRET_KEY=""
+STRIPE_WEBHOOK_SECRET=""
+STRIPE_WEBHOOK_LOCAL_SERCRET=""
+PLAUSIBLE_DOMAIN=""
+```
 
 ## Deploy on Vercel
 
