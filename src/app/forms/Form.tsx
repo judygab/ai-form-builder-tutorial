@@ -67,7 +67,7 @@ const Form = (props: Props) => {
         body: JSON.stringify({ formId: props.form.id, answers })
       });
       if (response.status === 200) {
-        router.push('/form/success');
+        router.push(`/forms/${props.form.id}/success`);
       } else {
         console.error('Error submitting form');
         alert('Error submitting form. Please try again later');
