@@ -31,7 +31,7 @@ const page = async ({ searchParams }: {
     <div>
       <FormsPicker options={selectOptions} />
       <ResultsDisplay
-        formId={searchParams?.id ? parseInt(searchParams.id as string) : userForms[0].id} />
+        formId={searchParams?.formId ? parseInt(searchParams.formId as string) : userForms[0].id} />
     </div>
   )
 }
